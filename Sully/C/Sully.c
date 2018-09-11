@@ -3,8 +3,6 @@
 
 int main()
 {
-	filename;
-
 	int i = 5;
 
 	if (i > 1)
