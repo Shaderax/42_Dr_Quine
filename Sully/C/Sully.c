@@ -10,6 +10,7 @@ char *code = "#include <stdlib.h>%1$c#include <stdio.h>%1$c%1$cint main()%1$c{%1
 if (i <= 1){return (0);};
 sprintf(filename, "Sully_%d.c", i - 1);
 FILE *f = fopen(filename, "w");
+if (!f) {exit(1);}
 fprintf(f, code, 10, 34, code, i - 1);
 sprintf(compile, "gcc Sully_%d.c -o Sully_%d && ./Sully_%d", i - 1, i - 1, i - 1);
 fclose(f);
