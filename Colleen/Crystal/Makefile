@@ -6,7 +6,7 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2018/09/19 19:29:26 by nrouzeva         ###   ########.fr        #
+#    Updated: 2018/09/19 19:50:18 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ NAME = Colleen
 SRC_PATH = .
 OBJ_PATH = obj
 
-SRC_NAME = Colleen.c
+SRC_NAME = Colleen.cr
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
+OBJ_NAME = $(SRC_NAME:.cr=.o)
 
-CC = gcc
-CFLAGS = -Wextra -Wall -Werror -O2 #-fsanitize=address -fsanitize=undefined
+CC = crystal 
+CFLAGS = build
 
 RED=\033[1;31m
 GREEN=\033[1;32m
@@ -33,12 +33,8 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CC) $^ -o $@
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): Makefile
+	@$(CC) $(CFLAGS) $^ -o $@
 	@echo "$(GREEN)[✓]$(NC) Source compiled : $<"
 
 clean:

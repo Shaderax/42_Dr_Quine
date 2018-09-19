@@ -6,7 +6,7 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2018/09/19 19:29:26 by nrouzeva         ###   ########.fr        #
+#    Updated: 2018/09/19 19:44:43 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ NAME = Colleen
 SRC_PATH = .
 OBJ_PATH = obj
 
-SRC_NAME = Colleen.c
+SRC_NAME = Colleen.s
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
+OBJ_NAME = $(SRC_NAME:.s=.o)
 
-CC = gcc
-CFLAGS = -Wextra -Wall -Werror -O2 #-fsanitize=address -fsanitize=undefined
+CC = nasm -f macho64
+CFLAGS = 
 
 RED=\033[1;31m
 GREEN=\033[1;32m
@@ -34,11 +34,11 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $^ -o $@
+	@gcc $^ -o $@
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.s Makefile
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@nasm -f macho64 $< -o $@
 	@echo "$(GREEN)[✓]$(NC) Source compiled : $<"
 
 clean:
