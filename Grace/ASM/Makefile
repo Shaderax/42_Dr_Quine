@@ -6,21 +6,21 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2018/09/19 19:50:18 by nrouzeva         ###   ########.fr        #
+#    Updated: 2018/09/20 18:40:45 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Colleen
+NAME = Grace
 
 SRC_PATH = .
 OBJ_PATH = obj
 
-SRC_NAME = Colleen.cr
+SRC_NAME = Grace.s
 
-OBJ_NAME = $(SRC_NAME:.cr=.o)
+OBJ_NAME = $(SRC_NAME:.s=.o)
 
-CC = crystal 
-CFLAGS = build
+CC = nasm -f macho64
+CFLAGS = 
 
 RED=\033[1;31m
 GREEN=\033[1;32m
@@ -33,8 +33,12 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): Makefile
-	@$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(OBJ)
+	@gcc $^ -o $@
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.s Makefile
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@nasm -f macho64 $< -o $@
 	@echo "$(GREEN)[✓]$(NC) Source compiled : $<"
 
 clean:
@@ -45,6 +49,7 @@ clean:
 fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(RED)[-]$(NC) Program clear"
+	@rm -rf Grace_kid.s
 
 re:fclean
 	@make

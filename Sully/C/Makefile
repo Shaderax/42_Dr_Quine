@@ -6,23 +6,28 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2018/09/19 19:52:20 by nrouzeva         ###   ########.fr        #
+#    Updated: 2018/09/20 18:44:24 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Colleen
+NAME = Sully
 
 SRC_PATH = .
+OBJ_PATH = obj
 
-SRC_NAME = Colleen.py
+SRC_NAME = Sully.c
 
-CC = python
+OBJ_NAME = $(SRC_NAME:.c=.o)
+
+CC = gcc
+CFLAGS = -Wextra -Wall -Werror -O2 #-fsanitize=address -fsanitize=undefined
 
 RED=\033[1;31m
 GREEN=\033[1;32m
 NC=\033[0m
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 .PHONY: all, clean, fclean, re
 
@@ -43,6 +48,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -rf Sully_*
 	@echo "$(RED)[-]$(NC) Program clear"
 
 re:fclean
